@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "com.chelyadin.test.simple_atm")
+@ComponentScan(basePackages = { "com.chelyadin.test.simple_atm" })
 public class Application extends SpringBootServletInitializer {
 
     @Override
