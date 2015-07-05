@@ -20,3 +20,13 @@ grant all on simpleatm.* to 'simple'@'%';
 
 ---- select db
 use simpleatm;
+
+---- create tables
+create table creditcard (
+  number varchar(16) not null,
+  pin varchar(4) not null,
+  primary key (number)
+);
+
+---- create default data
+insert into creditcard values ('1111222233334444', '1111');
