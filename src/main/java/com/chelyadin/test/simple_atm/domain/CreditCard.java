@@ -20,6 +20,13 @@ public class CreditCard implements UserDetails {
     @Column(name = "pin", nullable = false)
     private String pin;
 
+    public CreditCard() {}
+
+    public CreditCard(String number, String pin) {
+        this.number = number;
+        this.pin = pin;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -53,5 +60,25 @@ public class CreditCard implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CreditCard that = (CreditCard) o;
+
+        if (number != null ? !number.equals(that.number) : that.number != null) return false;
+        if (pin != null ? !pin.equals(that.pin) : that.pin != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = number != null ? number.hashCode() : 0;
+        result = 31 * result + (pin != null ? pin.hashCode() : 0);
+        return result;
     }
 }
