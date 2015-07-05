@@ -15,8 +15,12 @@ import javax.transaction.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
     private CreditCardRepo creditCardRepo;
+
+    @Autowired
+    public UserDetailsServiceImpl(CreditCardRepo creditCardRepo) {
+        this.creditCardRepo = creditCardRepo;
+    }
 
     @Override
     @Transactional
