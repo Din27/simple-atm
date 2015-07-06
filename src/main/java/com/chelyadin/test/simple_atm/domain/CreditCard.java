@@ -11,14 +11,14 @@ import java.util.Collection;
  * @author Dmitriy Chelyadin
  */
 @Entity
-@Table(name = "creditcard")
+@Table(name = "creditcards")
 public class CreditCard implements UserDetails {
 
     @Id
-    @Column(name = "number", nullable = false, updatable = false)
+    @Column(name = "number", length = 16, nullable = false, updatable = false)
     private String number;
 
-    @Column(name = "pin", nullable = false)
+    @Column(name = "pin", length = 4, nullable = false)
     private String pin;
 
     @Column(name = "amount", precision = 15, scale = 2, nullable = false)
