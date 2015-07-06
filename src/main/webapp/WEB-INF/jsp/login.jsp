@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body onload='document.loginForm.j_number.focus();'>
+<body onload='document.loginForm.j_pin.focus();'>
 
 <div id="login-box">
 
