@@ -5,7 +5,6 @@ import com.chelyadin.test.simple_atm.service.CreditCardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,9 @@ import javax.servlet.http.HttpSession;
  * @author Dmitriy Chelyadin
  */
 @Controller
-public class HomeController implements ErrorController {
+public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-    private static final String ERROR_PATH = "/error";
 
     CreditCardService creditCardService;
 
@@ -62,20 +59,4 @@ public class HomeController implements ErrorController {
 
     }
 
-    @RequestMapping("/operations")
-    public String operations() {
-        logger.info("Operations page request");
-        return "operations";
-    }
-
-    @RequestMapping(ERROR_PATH)
-    public String error() {
-        logger.info("Error page request");
-        return "error";
-    }
-
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
-    }
 }
