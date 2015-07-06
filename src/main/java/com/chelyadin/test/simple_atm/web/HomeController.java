@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author Dmitriy Chelyadin
  */
@@ -36,16 +38,20 @@ public class HomeController implements ErrorController {
     }
 
     @RequestMapping(value = "/enter_card", method = RequestMethod.POST)
-    public ModelAndView submitCreditCardNumber(@ModelAttribute CreditCardNumberForm form) {
-        logger.info(String.format("Enter card request, card %s", form.getNumber()));
-        ModelAndView modelAndView = new ModelAndView();
-        if (creditCardService.checkCreditCard(form.getNumber())) {
-            modelAndView.addObject("number", form.getNumber());
-            modelAndView.setViewName("login");
-        } else {
-            modelAndView.setViewName("error");
+    public String submitCreditCardNumber(
+            @ModelAttribute CreditCardNumberForm form,
+            HttpSession httpSession) {
+
+
+        if (!creditCardService.checkCreditCard(form.getNumber())) {
+            logger.info(String.format("Enter card request: Card %s not found", form.getNumber()));
+            return "redirect:/error";
         }
-        return modelAndView;
+
+        logger.info(String.format("Enter card request: Card %s found", form.getNumber()));
+        httpSession.setAttribute("LAST_NUMBER", form.getNumber());
+        return "redirect:/login";
+
     }
 
     @RequestMapping("/secured")
