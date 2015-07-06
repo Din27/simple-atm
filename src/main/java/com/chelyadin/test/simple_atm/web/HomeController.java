@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -32,9 +33,16 @@ public class HomeController implements ErrorController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
-        logger.info("Home page request");
-        return "home";
+    public ModelAndView home(@RequestParam(value = "logout", required = false) String logout) {
+        logger.info(String.format("Home page request, logout=%s", logout));
+
+        ModelAndView modelAndView = new ModelAndView();
+        if (logout != null) {
+            modelAndView.addObject("msg", "You've exited successfully");
+        }
+        modelAndView.setViewName("home");
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/enter_card", method = RequestMethod.POST)
@@ -54,10 +62,10 @@ public class HomeController implements ErrorController {
 
     }
 
-    @RequestMapping("/secured")
-    public String secured() {
-        logger.info("Secured page request");
-        return "secured";
+    @RequestMapping("/operations")
+    public String operations() {
+        logger.info("Operations page request");
+        return "operations";
     }
 
     @RequestMapping(ERROR_PATH)

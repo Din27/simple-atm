@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,13 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_number")
                 .passwordParameter("j_pin")
                 .loginProcessingUrl("/j_spring_security_check")
-                .defaultSuccessUrl("/secured")
+                .defaultSuccessUrl("/operations")
                 .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                .logoutUrl("/j_spring_security_logout")
+                .logoutSuccessUrl("/?logout")
                 .permitAll();
     }
 

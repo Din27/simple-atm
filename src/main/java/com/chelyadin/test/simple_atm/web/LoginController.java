@@ -21,7 +21,6 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(
             @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout,
             HttpSession httpSession) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -38,10 +37,6 @@ public class LoginController {
         if (error != null) {
             // TODO add left attempts info? or no?
             modelAndView.addObject("error", "Invalid PIN");
-        }
-
-        if (logout != null) {
-            modelAndView.addObject("msg", "You've exited successfully");
         }
 
         modelAndView.setViewName("login");

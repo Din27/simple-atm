@@ -4,16 +4,6 @@
 <head>
     <title>Login Page</title>
     <style>
-        .error {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-
         .msg {
             padding: 15px;
             margin-bottom: 20px;
@@ -40,6 +30,10 @@
 <div id="login-box">
 
     <h3>Credit Card Number:</h3>
+
+    <c:if test="${not empty msg}">
+        <div class="msg">${msg}</div>
+    </c:if>
 
     <form name='creditCardNumberForm'
           action="<c:url value='enter_card' />" method='POST'

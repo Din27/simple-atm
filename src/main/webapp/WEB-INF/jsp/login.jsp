@@ -14,16 +14,6 @@
             border-color: #ebccd1;
         }
 
-        .msg {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            color: #31708f;
-            background-color: #d9edf7;
-            border-color: #bce8f1;
-        }
-
         #login-box {
             width: 500px;
             padding: 20px;
@@ -44,12 +34,9 @@
     <c:if test="${not empty error}">
         <div class="error">${error}</div>
     </c:if>
-    <c:if test="${not empty msg}">
-        <div class="msg">${msg}</div>
-    </c:if>
 
     <form name='loginForm'
-          action="<c:url value='j_spring_security_check' />" method='POST'
+          action="<c:url value='/j_spring_security_check' />" method='POST'
           autocomplete="off">
 
         <!-- fake fields are a workaround for chrome autofill getting the wrong fields (chrome ignores autocomplete="off") -->
