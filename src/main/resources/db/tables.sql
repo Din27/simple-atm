@@ -8,3 +8,6 @@
 --   amount numeric(15,2) not null,
 --   primary key (number)
 -- );
+
+---- operations table
+-- TODO add manual creation of operations table here

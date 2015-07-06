@@ -26,10 +26,11 @@ public class CreditCardServiceImpl implements CreditCardService {
         this.creditCardRepo = creditCardRepo;
     }
 
+    @Override
     public boolean checkCreditCard(String number) {
         CreditCard creditCard = creditCardRepo.findOne(number);
         boolean result = creditCard != null;
-        logger.info(String.format("Credit Card %s is %s", number, result ? "found" : "not found"));
+        logger.info(String.format("Checking Credit Card: %s is %s", number, result ? "found" : "not found"));
         return result;
     }
 }
