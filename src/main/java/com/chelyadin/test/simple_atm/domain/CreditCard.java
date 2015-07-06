@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -20,11 +21,26 @@ public class CreditCard implements UserDetails {
     @Column(name = "pin", nullable = false)
     private String pin;
 
+    @Column(name = "amount", precision = 15, scale = 2, nullable = false)
+    private BigDecimal amount;
+
     public CreditCard() {}
 
     public CreditCard(String number, String pin) {
         this.number = number;
         this.pin = pin;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
     }
 
     @Override
@@ -69,6 +85,7 @@ public class CreditCard implements UserDetails {
 
         CreditCard that = (CreditCard) o;
 
+        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
         if (number != null ? !number.equals(that.number) : that.number != null) return false;
         if (pin != null ? !pin.equals(that.pin) : that.pin != null) return false;
 
@@ -79,6 +96,7 @@ public class CreditCard implements UserDetails {
     public int hashCode() {
         int result = number != null ? number.hashCode() : 0;
         result = 31 * result + (pin != null ? pin.hashCode() : 0);
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
         return result;
     }
 }

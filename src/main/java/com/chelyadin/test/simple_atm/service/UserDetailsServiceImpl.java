@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
  * @author Dmitriy Chelyadin
  */
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private CreditCardRepo creditCardRepo;
@@ -23,7 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    @Transactional
     public CreditCard loadUserByUsername(String number) {
         CreditCard creditCard = creditCardRepo.findOne(number);
         if (creditCard == null) {

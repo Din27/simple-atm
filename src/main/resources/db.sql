@@ -25,8 +25,10 @@ use simpleatm;
 create table creditcard (
   number varchar(16) not null,
   pin varchar(4) not null,
+  amount numeric(15,2) not null,
   primary key (number)
 );
 
 ---- create default data
-insert into creditcard values ('1111222233334444', '1111');
+insert into creditcard values ('1111222233334444', '1111', 10000.00);
+insert into creditcard values ('5555666677778888', '5555', 0);

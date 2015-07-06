@@ -31,7 +31,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView home(@RequestParam(value = "logout", required = false) String logout) {
-        logger.info(String.format("Home page request, logout=%s", logout));
+        logger.info(String.format("Home page request"));
 
         ModelAndView modelAndView = new ModelAndView();
         if (logout != null) {
