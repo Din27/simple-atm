@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Dmitriy Chelyadin
  */
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
 public abstract class BaseService {
 }
