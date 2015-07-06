@@ -36,11 +36,12 @@ public class LoginController {
         modelAndView.addObject("number", number);
 
         if (error != null) {
-            modelAndView.addObject("error", "Invalid credentials");
+            // TODO add left attempts info? or no?
+            modelAndView.addObject("error", "Invalid PIN");
         }
 
         if (logout != null) {
-            modelAndView.addObject("msg", "You've been logged out successfully.");
+            modelAndView.addObject("msg", "You've exited successfully");
         }
 
         modelAndView.setViewName("login");
