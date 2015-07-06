@@ -35,11 +35,11 @@
         }
     </style>
 </head>
-<body onload='document.loginForm.username.focus();'>
+<body onload='document.loginForm.j_number.focus();'>
 
 <div id="login-box">
 
-    <h2>Login</h2>
+    <h3>PIN for <c:out value="${number}"/>:</h3>
 
     <c:if test="${not empty error}">
         <div class="error">${error}</div>
@@ -49,22 +49,17 @@
     </c:if>
 
     <form name='loginForm'
-          action="<c:url value='j_spring_security_check' />" method='POST'>
+          action="<c:url value='j_spring_security_check' />" method='POST'
+          autocomplete="off">
 
-        <table>
-            <tr>
-                <td>Credit Card Number:</td>
-                <td><input type='text' name='username' value=''></td>
-            </tr>
-            <tr>
-                <td>PIN:</td>
-                <td><input type='password' name='password' /></td>
-            </tr>
-            <tr>
-                <td colspan='2'><input name="submit" type="submit"
-                                       value="submit" /></td>
-            </tr>
-        </table>
+        <!-- fake fields are a workaround for chrome autofill getting the wrong fields (chrome ignores autocomplete="off") -->
+        <input style="display:none" type="text" name="fakeusernameremembered"/>
+        <input style="display:none" type="password" name="fakepasswordremembered"/>
+
+        <input style="display:none" type='text' name='j_number' value='${number}' autocomplete="off"/>
+
+        <input type='password' name='j_pin' autocomplete="off"/>
+        <input name="submit" type="submit" value="submit" />
 
         <input type="hidden" name="${_csrf.parameterName}"
                value="${_csrf.token}" />
