@@ -13,8 +13,7 @@ import javax.transaction.Transactional;
  * @author Dmitriy Chelyadin
  */
 @Service
-@Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl extends BaseService implements UserDetailsService {
 
     private CreditCardRepo creditCardRepo;
 

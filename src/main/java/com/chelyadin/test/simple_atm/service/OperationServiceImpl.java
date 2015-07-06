@@ -15,8 +15,7 @@ import java.util.Date;
  * @author Dmitriy Chelyadin
  */
 @Service
-@Transactional
-public class OperationServiceImpl implements OperationService {
+public class OperationServiceImpl extends BaseService implements OperationService {
 
     private static final Logger logger = LoggerFactory.getLogger(OperationServiceImpl.class);
 
