@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = { "com.chelyadin.test.simple_atm" })
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
