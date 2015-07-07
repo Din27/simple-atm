@@ -16,7 +16,6 @@ public class Operation {
     @GeneratedValue
     private Long id;
 
-    // TODO another, good link, with foreign key
     @Column(name = "card_number", length = 19, updatable = false, nullable = false)
     private String cardNumber;
 
