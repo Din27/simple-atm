@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
-<body>
+<body onload='document.creditCardNumberForm.number.focus();'>
     <div id="container">
 
         <h3>Credit Card Number:</h3>

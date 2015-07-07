@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
 
-<body>
+<body onload='document.withdrawalForm.withdrawalAmount.focus();'>
     <div id="container">
     <h3>Withdrawal</h3>
         <c:if test="${not empty error}">
             <div class="error">${error}</div>
         </c:if>
 
-        <form action=" <c:url value='/withdraw'/>" method="post">
+        <form name='withdrawalForm' action=" <c:url value='/withdraw'/>" autocomplete="off" method="POST">
             <input type="text" name="withdrawalAmount" autocomplete="off" /><br/>
             <input type="submit" value="Withdraw" /><br/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
