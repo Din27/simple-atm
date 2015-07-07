@@ -6,4 +6,5 @@
                  delims=",">
         <button class="keypad-key" type="button" value="<c:out value='${key}'/>" ><c:out value='${key}'/></button>
     </c:forTokens>
+    <button class="keypad-clear-key" type="button">Clear</button>
 </div>

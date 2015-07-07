@@ -18,7 +18,7 @@
             <input id="${withdrawalAmountInputId}" type="text" name="withdrawalAmount" autocomplete="off" readonly required/><br/>
 
             <jsp:include page="_keypad.jsp"/>
-            <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false); });</script>
+            <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false, "Delete"); });</script>
 
             <input type="submit" value="Withdraw" /><br/>
 
