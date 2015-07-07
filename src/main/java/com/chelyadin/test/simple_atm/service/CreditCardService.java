@@ -9,12 +9,9 @@ import java.math.BigDecimal;
  */
 public interface CreditCardService {
 
-    // operations with credit card by number
     boolean checkCreditCard(String number);
     Integer incrementFailedLoginAttempts(String number);
     Integer resetFailedLoginAttempts(String number);
-
-    // operations with currently logged in credit card
-    CreditCard checkBalanceForCurrent();
-    CreditCard withdrawForCurrent(BigDecimal amount);
+    CreditCard checkBalance(String number);
+    CreditCard withdraw(String number, BigDecimal amount);
 }

@@ -9,7 +9,6 @@ import com.chelyadin.test.simple_atm.service.OperationHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +22,7 @@ import java.util.Date;
  * @author Dmitriy Chelyadin
  */
 @Controller
-public class OperationsController {
+public class OperationsController extends BaseSecurityController {
 
     private static final Logger logger = LoggerFactory.getLogger(OperationsController.class);
 
@@ -43,7 +42,7 @@ public class OperationsController {
     public ModelAndView balance() {
         logger.info("Balance operation request");
 
-        CreditCard creditCard = creditCardService.checkBalanceForCurrent();
+        CreditCard creditCard = creditCardService.checkBalance(getCurrentCreditCardNumber());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
@@ -61,10 +60,8 @@ public class OperationsController {
             @RequestParam(value = "emptyWithdrawalAmount", required = false) String emptyWithdrawalAmount) {
         logger.info("Withdrawal page request");
 
-        CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("number", creditCard.getNumber());
+        modelAndView.addObject("number", getCurrentCreditCardNumber());
         if (emptyWithdrawalAmount != null) {
             modelAndView.addObject("error", "Error! Withdrawal amount can not be empty");
         } else if (notEnoughMoney != null) {
@@ -81,7 +78,7 @@ public class OperationsController {
 
         BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount()); // TODO validate first - for format and for negative value
 
-        CreditCard savedCreditCard = creditCardService.withdrawForCurrent(withdrawalAmount);
+        CreditCard savedCreditCard = creditCardService.withdraw(getCurrentCreditCardNumber(), withdrawalAmount);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", savedCreditCard.getNumber());

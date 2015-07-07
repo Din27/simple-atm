@@ -5,7 +5,6 @@ import com.chelyadin.test.simple_atm.repository.CreditCardRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,8 +26,6 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
         this.operationHistoryService = operationHistoryService;
     }
 
-
-// operations with credit card by number
 
     @Override
     public boolean checkCreditCard(String number) {
@@ -52,27 +49,20 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
         return savedCreditCard.getFailedLoginAttempts();
     }
 
-
-// operations with currently logged in credit card
-
     @Override
-    public CreditCard checkBalanceForCurrent() {
-        CreditCard creditCard = getCurrentCreditCard();
+    public CreditCard checkBalance(String number) {
+        CreditCard creditCard = creditCardRepo.findOne(number);
         operationHistoryService.saveBalanceOperation(creditCard.getNumber());
         return creditCard;
     }
 
     @Override
-    public CreditCard withdrawForCurrent(BigDecimal withdrawalAmount) {
-        CreditCard creditCard = getCurrentCreditCard();
+    public CreditCard withdraw(String number, BigDecimal withdrawalAmount) {
+        CreditCard creditCard = creditCardRepo.findOne(number);
         creditCard.withdraw(withdrawalAmount);
         CreditCard savedCreditCard = creditCardRepo.save(creditCard);
         operationHistoryService.saveWithdrawalOperation(savedCreditCard.getNumber(), withdrawalAmount);
         return savedCreditCard;
-
     }
 
-    private CreditCard getCurrentCreditCard() {
-        return (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 }
