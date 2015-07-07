@@ -8,21 +8,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 
 /**
  * @author Dmitriy Chelyadin
  */
 @Service
-public class OperationServiceImpl extends BaseService implements OperationService {
+public class OperationHistoryServiceImpl extends BaseService implements OperationHistoryService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OperationServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(OperationHistoryServiceImpl.class);
 
     private OperationRepo operationRepo;
 
     @Autowired
-    public OperationServiceImpl(OperationRepo operationRepo) {
+    public OperationHistoryServiceImpl(OperationRepo operationRepo) {
         this.operationRepo = operationRepo;
     }
 

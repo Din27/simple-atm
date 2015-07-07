@@ -5,15 +5,20 @@
     <title>Simple ATM</title>
 </head>
 <body>
-    <h3>Operations</h3>
+    <h3>Withdrawal</h3>
 
-    <a href="<c:url value='/balance'/>">Balance</a><br/>
-    <a href="<c:url value='/withdrawal'/>">Remove sum</a><br/>
+
+    <form action=" <c:url value='/withdraw'/>" method="post">
+        <input type="text" name="withdrawalAmount" autocomplete="off" /><br/>
+        <input type="submit" value="Withdraw" /><br/>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+
+    <a href="<c:url value='/operations'/>">Back</a>
 
     <form action=" <c:url value='/j_spring_security_logout'/>" method="post">
         <input type="submit" value="Exit" />
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
-
 </body>
 </html>
