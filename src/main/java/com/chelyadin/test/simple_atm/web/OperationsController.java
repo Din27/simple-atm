@@ -1,6 +1,7 @@
 package com.chelyadin.test.simple_atm.web;
 
 import com.chelyadin.test.simple_atm.domain.CreditCard;
+import com.chelyadin.test.simple_atm.exception.NotEnoughMoneyException;
 import com.chelyadin.test.simple_atm.form.WithdrawalForm;
 import com.chelyadin.test.simple_atm.service.CreditCardService;
 import com.chelyadin.test.simple_atm.service.OperationHistoryService;
@@ -9,9 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
@@ -56,13 +55,17 @@ public class OperationsController {
     }
 
     @RequestMapping("/withdrawal")
-    public ModelAndView withdrawal() {
+    public ModelAndView withdrawal(@RequestParam(value = "error", required = false) String error) {
         logger.info("Withdrawal page request");
 
         CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
+        if (error != null) {
+            modelAndView.addObject("error", "Not enough money!");
+        }
+
         modelAndView.setViewName("withdrawal");
         return modelAndView;
     }
@@ -71,12 +74,27 @@ public class OperationsController {
     public ModelAndView withdraw(@ModelAttribute WithdrawalForm form) {
         logger.info(String.format("Withdraw operation request, withdrawal amount = %s$", form.getWithdrawalAmount()));
 
-        creditCardService.withdraw(new BigDecimal(form.getWithdrawalAmount())); // TODO validate first
+        BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount()); // TODO validate first - for format and for negative value
 
-        // TODO add info to report page
+        CreditCard savedCreditCard = creditCardService.withdraw(withdrawalAmount);
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("number", savedCreditCard.getNumber());
+        modelAndView.addObject("balanceAmount", savedCreditCard.getAmount());
+        modelAndView.addObject("withdrawalAmount", withdrawalAmount);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        modelAndView.addObject("currentDate", dateFormat.format(new Date()));
+
         modelAndView.setViewName("report");
         return modelAndView;
     }
+
+    /**
+     * In case of unsuccessful withdrawal redirect back to withdrawal page and show error msg
+     */
+    @ExceptionHandler(NotEnoughMoneyException.class)
+    public String handleAllException(Exception ex) {
+        return "redirect:/withdrawal?error";
+    }
+
 }

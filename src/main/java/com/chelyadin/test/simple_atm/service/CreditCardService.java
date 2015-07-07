@@ -12,5 +12,5 @@ public interface CreditCardService {
     boolean checkCreditCard(String number);
 
     CreditCard checkBalance();
-    void withdraw(BigDecimal amount);
+    CreditCard withdraw(BigDecimal amount);
 }

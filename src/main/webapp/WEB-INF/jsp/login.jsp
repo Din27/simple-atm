@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Simple ATM</title>
     <style>
         .error {
             padding: 15px;
@@ -14,7 +14,7 @@
             border-color: #ebccd1;
         }
 
-        #login-box {
+        #container {
             width: 500px;
             padding: 20px;
             margin: 100px auto;
@@ -27,7 +27,7 @@
 </head>
 <body onload='document.loginForm.j_pin.focus();'>
 
-<div id="login-box">
+<div id="container">
 
     <h3>PIN for <c:out value="${number}"/>:</h3>
 

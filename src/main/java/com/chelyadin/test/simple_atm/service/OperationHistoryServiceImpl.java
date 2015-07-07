@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -28,8 +29,14 @@ public class OperationHistoryServiceImpl extends BaseService implements Operatio
     @Override
     public void saveBalanceOperation(String cardNumber) {
         logger.info("Saving balance operation");
-
         Operation operation = new Operation(cardNumber, new Date(), OperationCode.BALANCE);
+        operationRepo.save(operation);
+    }
+
+    @Override
+    public void saveWithdrawalOperation(String cardNumber, BigDecimal withdrawalAmount) {
+        logger.info("Saving withdrawal operation");
+        Operation operation = new Operation(cardNumber, new Date(), OperationCode.WITHDRAWAL, withdrawalAmount);
         operationRepo.save(operation);
     }
 }

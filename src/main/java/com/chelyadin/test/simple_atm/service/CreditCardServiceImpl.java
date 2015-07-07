@@ -41,11 +41,13 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
     }
 
     @Override
-    public void withdraw(BigDecimal amount) {
+    public CreditCard withdraw(BigDecimal withdrawalAmount) {
         CreditCard creditCard = getCurrentCreditCard();
-        //TODO withdraw, throw exception if something goes wrong
-        //TODO save operation
-        //TODO check transaction
+        creditCard.withdraw(withdrawalAmount);
+        CreditCard savedCreditCard = creditCardRepo.save(creditCard);
+        operationHistoryService.saveWithdrawalOperation(savedCreditCard.getNumber(), withdrawalAmount);
+        return savedCreditCard;
+
     }
 
     private CreditCard getCurrentCreditCard() {

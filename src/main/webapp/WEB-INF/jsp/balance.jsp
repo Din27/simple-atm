@@ -3,19 +3,34 @@
 <html>
 <head>
     <title>Simple ATM</title>
+    <style>
+        #container {
+            width: 500px;
+            padding: 20px;
+            margin: 100px auto;
+            background: #fff;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border: 1px solid #000;
+        }
+    </style>
 </head>
 <body>
-    <h3>Balance</h3>
 
-    <c:out value="${currentDate}"/><br/>
-    <c:out value="${number}"/><br/>
-    <c:out value="${amount}$"/><br/>
+    <div id="container">
+        <h3>Balance</h3>
 
-    <a href="<c:url value='/operations'/>">Back</a><br/>
+        <c:out value="${currentDate}"/><br/>
+        <c:out value="${number}"/><br/>
+        -------------<br/>
+        <c:out value="=${amount}$"/><br/>
 
-    <form action=" <c:url value='/j_spring_security_logout'/>" method="post">
-        <input type="submit" value="Exit" />
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
+        <a href="<c:url value='/operations'/>">Back</a><br/>
+
+        <form action=" <c:url value='/j_spring_security_logout'/>" method="post">
+            <input type="submit" value="Exit" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </div>
 </body>
 </html>

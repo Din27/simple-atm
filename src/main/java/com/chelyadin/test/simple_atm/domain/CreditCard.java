@@ -1,5 +1,8 @@
 package com.chelyadin.test.simple_atm.domain;
 
+import com.chelyadin.test.simple_atm.exception.NotEnoughMoneyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +16,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "creditcards")
 public class CreditCard implements UserDetails {
+
+    private static final Logger logger = LoggerFactory.getLogger(CreditCard.class);
 
     @Id
     @Column(name = "number", length = 16, nullable = false, updatable = false)
@@ -41,6 +46,19 @@ public class CreditCard implements UserDetails {
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    /**
+     * This method should be run in @Transactional context!
+     */
+    public BigDecimal withdraw(BigDecimal withdrawalAmount) {
+        if (amount.compareTo(withdrawalAmount) < 0) {
+            logger.info(String.format("Not enough money on card %s to withdraw %s", number, withdrawalAmount));
+            throw new NotEnoughMoneyException("Not enough money to withdraw");
+        }
+        this.amount = this.amount.subtract(withdrawalAmount);
+        logger.info(String.format("%s$ were withdrawn from card %s", withdrawalAmount, number));
+        return this.amount;
     }
 
     @Override

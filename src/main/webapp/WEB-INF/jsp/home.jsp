@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Simple ATM</title>
     <style>
         .msg {
             padding: 15px;
@@ -14,7 +14,7 @@
             border-color: #bce8f1;
         }
 
-        #login-box {
+        #container {
             width: 500px;
             padding: 20px;
             margin: 100px auto;
@@ -27,7 +27,7 @@
 </head>
 <body onload='document.creditCardNumberForm.number.focus();'>
 
-<div id="login-box">
+<div id="container">
 
     <h3>Credit Card Number:</h3>
 
