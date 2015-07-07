@@ -8,13 +8,14 @@
             <div class="error">${error}</div>
         </c:if>
 
-        <form name='withdrawalForm'
+        <form id="withdrawalForm"
+              name='withdrawalForm'
               action=" <c:url value='/withdraw'/>"
               autocomplete="off"
               method="POST">
 
             <c:set var="withdrawalAmountInputId" value="pin-input"/>
-            <input id="${withdrawalAmountInputId}" type="text" name="withdrawalAmount" autocomplete="off" readonly/><br/>
+            <input id="${withdrawalAmountInputId}" type="text" name="withdrawalAmount" autocomplete="off" readonly required/><br/>
 
             <jsp:include page="_keypad.jsp"/>
             <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false); });</script>
@@ -31,6 +32,16 @@
             <input type="submit" value="Exit" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+
+        <script>
+            $(document).ready(function() {
+                $('#withdrawalForm').submit(function() {
+                    if ($.trim($("#${withdrawalAmountInputId}").val()) === "") {
+                        return false;
+                    }
+                });
+            });
+        </script>
     </div>
 </body>
 
