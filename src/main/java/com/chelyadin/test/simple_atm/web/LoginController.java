@@ -47,7 +47,7 @@ public class LoginController {
 
         if (error != null) {
             // TODO add left attempts info? or no?
-            modelAndView.addObject("error", "Invalid PIN");
+            modelAndView.addObject("error", "Error! Invalid PIN");
         }
 
         modelAndView.setViewName("login");

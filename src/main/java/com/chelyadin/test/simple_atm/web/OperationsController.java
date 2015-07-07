@@ -2,7 +2,7 @@ package com.chelyadin.test.simple_atm.web;
 
 import com.chelyadin.test.simple_atm.domain.CreditCard;
 import com.chelyadin.test.simple_atm.exception.WithdrawNotEnoughMoneyException;
-import com.chelyadin.test.simple_atm.exception.WithdrawRulesConflictException;
+import com.chelyadin.test.simple_atm.exception.WithdrawZeroAmountException;
 import com.chelyadin.test.simple_atm.form.WithdrawalForm;
 import com.chelyadin.test.simple_atm.service.CreditCardService;
 import com.chelyadin.test.simple_atm.service.OperationHistoryService;
@@ -56,15 +56,19 @@ public class OperationsController {
     }
 
     @RequestMapping("/withdrawal")
-    public ModelAndView withdrawal(@RequestParam(value = "error", required = false) String error) {
+    public ModelAndView withdrawal(
+            @RequestParam(value = "notEnoughMoney", required = false) String notEnoughMoney,
+            @RequestParam(value = "emptyWithdrawalAmount", required = false) String emptyWithdrawalAmount) {
         logger.info("Withdrawal page request");
 
         CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
-        if (error != null) {
-            modelAndView.addObject("error", "Not enough money!");
+        if (emptyWithdrawalAmount != null) {
+            modelAndView.addObject("error", "Error! Withdrawal amount can not be empty");
+        } else if (notEnoughMoney != null) {
+            modelAndView.addObject("error", "Error!  There is not enough money on credit card");
         }
 
         modelAndView.setViewName("withdrawal");
@@ -91,11 +95,19 @@ public class OperationsController {
     }
 
     /**
-     * In case of unsuccessful withdrawal redirect back to withdrawal page and show error msg
+     * In case of empty withdrawal amount redirect back to withdrawal page and show error msg
+     */
+    @ExceptionHandler(WithdrawZeroAmountException.class)
+    public String handleWithdrawZeroAmount(Exception ex) {
+        return "redirect:/withdrawal?emptyWithdrawalAmount";
+    }
+
+    /**
+     * In case of not enough money on card to withdraw redirect back to withdrawal page and show error msg
      */
     @ExceptionHandler(WithdrawNotEnoughMoneyException.class)
-    public String handleAllException(Exception ex) {
-        return "redirect:/withdrawal?error";
+    public String handleWithdrawNotEnoughMoney(Exception ex) {
+        return "redirect:/withdrawal?notEnoughMoney";
     }
 
 }
