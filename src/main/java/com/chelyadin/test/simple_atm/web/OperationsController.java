@@ -1,7 +1,8 @@
 package com.chelyadin.test.simple_atm.web;
 
 import com.chelyadin.test.simple_atm.domain.CreditCard;
-import com.chelyadin.test.simple_atm.exception.NotEnoughMoneyException;
+import com.chelyadin.test.simple_atm.exception.WithdrawNotEnoughMoneyException;
+import com.chelyadin.test.simple_atm.exception.WithdrawRulesConflictException;
 import com.chelyadin.test.simple_atm.form.WithdrawalForm;
 import com.chelyadin.test.simple_atm.service.CreditCardService;
 import com.chelyadin.test.simple_atm.service.OperationHistoryService;
@@ -92,7 +93,7 @@ public class OperationsController {
     /**
      * In case of unsuccessful withdrawal redirect back to withdrawal page and show error msg
      */
-    @ExceptionHandler(NotEnoughMoneyException.class)
+    @ExceptionHandler(WithdrawNotEnoughMoneyException.class)
     public String handleAllException(Exception ex) {
         return "redirect:/withdrawal?error";
     }

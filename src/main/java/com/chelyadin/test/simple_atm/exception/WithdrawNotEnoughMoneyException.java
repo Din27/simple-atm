@@ -6,21 +6,21 @@ package com.chelyadin.test.simple_atm.exception;
  * Exception that says that there is not enough money on account for making the operation (for example, withdrawal).
  * Extends from RuntimeException, so that transactions can rollback at the point of exception.
  */
-public class NotEnoughMoneyException extends RuntimeException {
+public class WithdrawNotEnoughMoneyException extends WithdrawRulesConflictException {
 
-    public NotEnoughMoneyException() {
+    public WithdrawNotEnoughMoneyException() {
         super();
     }
 
-    public NotEnoughMoneyException(String message) {
+    public WithdrawNotEnoughMoneyException(String message) {
         super(message);
     }
 
-    public NotEnoughMoneyException(String message, Throwable cause) {
+    public WithdrawNotEnoughMoneyException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NotEnoughMoneyException(Throwable cause) {
+    public WithdrawNotEnoughMoneyException(Throwable cause) {
         super(cause);
     }
 }

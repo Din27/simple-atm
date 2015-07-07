@@ -1,6 +1,7 @@
 package com.chelyadin.test.simple_atm.domain;
 
-import com.chelyadin.test.simple_atm.exception.NotEnoughMoneyException;
+import com.chelyadin.test.simple_atm.exception.WithdrawNotEnoughMoneyException;
+import com.chelyadin.test.simple_atm.exception.WithdrawRulesConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,12 +50,16 @@ public class CreditCard implements UserDetails {
     }
 
     /**
-     * This method should be run in @Transactional context!
+     * IMPORTANT! This method should be run in @Transactional context!
      */
     public BigDecimal withdraw(BigDecimal withdrawalAmount) {
+        if (withdrawalAmount.compareTo(new BigDecimal(0)) <= 0) {
+            logger.info(String.format("Withdrawal amount is negative or zero: %s", withdrawalAmount));
+            throw new WithdrawRulesConflictException("Withdrawal amount is negative or zero");
+        }
         if (amount.compareTo(withdrawalAmount) < 0) {
             logger.info(String.format("Not enough money on card %s to withdraw %s", number, withdrawalAmount));
-            throw new NotEnoughMoneyException("Not enough money to withdraw");
+            throw new WithdrawNotEnoughMoneyException("Not enough money to withdraw");
         }
         this.amount = this.amount.subtract(withdrawalAmount);
         logger.info(String.format("%s$ were withdrawn from card %s", withdrawalAmount, number));
