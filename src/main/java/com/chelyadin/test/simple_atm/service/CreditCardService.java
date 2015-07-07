@@ -10,5 +10,7 @@ import java.math.BigDecimal;
 public interface CreditCardService {
 
     boolean checkCreditCard(String number);
-    void withdraw(CreditCard creditCard, BigDecimal amount);
+
+    CreditCard checkBalance();
+    void withdraw(BigDecimal amount);
 }

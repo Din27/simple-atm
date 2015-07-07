@@ -20,5 +20,6 @@
         <input type="submit" value="Exit" />
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
+
 </body>
 </html>

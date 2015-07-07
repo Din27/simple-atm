@@ -1,7 +1,6 @@
 package com.chelyadin.test.simple_atm.web;
 
 import com.chelyadin.test.simple_atm.domain.CreditCard;
-import com.chelyadin.test.simple_atm.form.CreditCardNumberForm;
 import com.chelyadin.test.simple_atm.form.WithdrawalForm;
 import com.chelyadin.test.simple_atm.service.CreditCardService;
 import com.chelyadin.test.simple_atm.service.OperationHistoryService;
@@ -44,16 +43,13 @@ public class OperationsController {
     public ModelAndView balance() {
         logger.info("Balance operation request");
 
-        ModelAndView modelAndView = new ModelAndView();
+        CreditCard creditCard = creditCardService.checkBalance();
 
-        CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
         modelAndView.addObject("amount", creditCard.getAmount());
-
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         modelAndView.addObject("currentDate", dateFormat.format(new Date()));
-
-        operationHistoryService.saveBalanceOperation(creditCard.getNumber());
 
         modelAndView.setViewName("balance");
         return modelAndView;
@@ -63,11 +59,10 @@ public class OperationsController {
     public ModelAndView withdrawal() {
         logger.info("Withdrawal page request");
 
-        ModelAndView modelAndView = new ModelAndView();
-
         CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        modelAndView.addObject("number", creditCard.getNumber());
 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("number", creditCard.getNumber());
         modelAndView.setViewName("withdrawal");
         return modelAndView;
     }
@@ -76,13 +71,11 @@ public class OperationsController {
     public ModelAndView withdraw(@ModelAttribute WithdrawalForm form) {
         logger.info(String.format("Withdraw operation request, withdrawal amount = %s$", form.getWithdrawalAmount()));
 
-        ModelAndView modelAndView = new ModelAndView();
-
-        CreditCard creditCard = (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        creditCardService.withdraw(creditCard, new BigDecimal(form.getWithdrawalAmount())); // TODO validate first
+        creditCardService.withdraw(new BigDecimal(form.getWithdrawalAmount())); // TODO validate first
 
         // TODO add info to report page
 
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("report");
         return modelAndView;
     }

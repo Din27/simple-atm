@@ -2,7 +2,6 @@ package com.chelyadin.test.simple_atm.service;
 
 import com.chelyadin.test.simple_atm.domain.CreditCard;
 import com.chelyadin.test.simple_atm.repository.CreditCardRepo;
-import com.chelyadin.test.simple_atm.repository.OperationRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,21 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
     }
 
     @Override
-    public void withdraw(CreditCard creditCard, BigDecimal amount) {
+    public CreditCard checkBalance() {
+        CreditCard creditCard = getCurrentCreditCard();
+        operationHistoryService.saveBalanceOperation(creditCard.getNumber());
+        return creditCard;
+    }
+
+    @Override
+    public void withdraw(BigDecimal amount) {
+        CreditCard creditCard = getCurrentCreditCard();
         //TODO withdraw, throw exception if something goes wrong
         //TODO save operation
         //TODO check transaction
+    }
+
+    private CreditCard getCurrentCreditCard() {
+        return (CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
