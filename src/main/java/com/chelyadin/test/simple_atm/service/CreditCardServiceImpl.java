@@ -45,10 +45,11 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
     }
 
     @Override
-    public void resetFailedLoginAttempts(String number) {
+    public Integer resetFailedLoginAttempts(String number) {
         CreditCard creditCard = creditCardRepo.findOne(number);
         creditCard.resetFailedLoginAttempts();
-        creditCardRepo.save(creditCard);
+        CreditCard savedCreditCard = creditCardRepo.save(creditCard);
+        return savedCreditCard.getFailedLoginAttempts();
     }
 
 

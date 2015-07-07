@@ -23,7 +23,7 @@ public class SuccessLoginListener implements ApplicationListener<AuthenticationS
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
         CreditCard creditCard = (CreditCard) event.getAuthentication().getPrincipal();
-        creditCardService.resetFailedLoginAttempts(creditCard.getNumber());
-        logger.info(String.format("PIN Entering succeeded (%s). Failed attempts reset", creditCard.getNumber()));
+        Integer failedLoginAttempts = creditCardService.resetFailedLoginAttempts(creditCard.getNumber());
+        logger.info(String.format("PIN Entering succeeded (%s). Failed attempts reset, now: %d", creditCard.getNumber(), failedLoginAttempts));
     }
 }
