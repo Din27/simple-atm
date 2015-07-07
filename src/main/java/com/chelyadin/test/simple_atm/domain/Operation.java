@@ -16,8 +16,9 @@ public class Operation {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "card_id", length = 16, updatable = false, nullable = false)
-    private String cardId;
+    // TODO another, good link, with foreign key
+    @Column(name = "card_number", length = 19, updatable = false, nullable = false)
+    private String cardNumber;
 
     @Column(name = "time", updatable = false, nullable = false)
     private Date time;
@@ -29,12 +30,12 @@ public class Operation {
     @Column(name = "withdrawal_amount", precision = 15, scale = 2, updatable = false, nullable = true)
     private BigDecimal withdrawalAmount;
 
-    public Operation(String cardId, Date time, OperationCode operationCode) {
-        this(cardId, time, operationCode, null);
+    public Operation(String cardNumber, Date time, OperationCode operationCode) {
+        this(cardNumber, time, operationCode, null);
     }
 
-    public Operation(String cardId, Date time, OperationCode operationCode, BigDecimal withdrawalAmount) {
-        this.cardId = cardId;
+    public Operation(String cardNumber, Date time, OperationCode operationCode, BigDecimal withdrawalAmount) {
+        this.cardNumber = cardNumber;
         this.time = time;
         this.operationCode = operationCode;
         this.withdrawalAmount = withdrawalAmount;
@@ -44,8 +45,8 @@ public class Operation {
         return id;
     }
 
-    public String getCardId() {
-        return cardId;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
     public Date getTime() {
@@ -67,7 +68,7 @@ public class Operation {
 
         Operation operation = (Operation) o;
 
-        if (cardId != null ? !cardId.equals(operation.cardId) : operation.cardId != null) return false;
+        if (cardNumber != null ? !cardNumber.equals(operation.cardNumber) : operation.cardNumber != null) return false;
         if (id != null ? !id.equals(operation.id) : operation.id != null) return false;
         if (operationCode != operation.operationCode) return false;
         if (time != null ? !time.equals(operation.time) : operation.time != null) return false;
@@ -80,7 +81,7 @@ public class Operation {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
+        result = 31 * result + (cardNumber != null ? cardNumber.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
         result = 31 * result + (operationCode != null ? operationCode.hashCode() : 0);
         result = 31 * result + (withdrawalAmount != null ? withdrawalAmount.hashCode() : 0);

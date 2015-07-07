@@ -23,7 +23,7 @@ public class CreditCard implements UserDetails {
     private static final Logger logger = LoggerFactory.getLogger(CreditCard.class);
 
     @Id
-    @Column(name = "number", length = 16, nullable = false, updatable = false)
+    @Column(name = "number", length = 19, nullable = false, updatable = false)
     private String number;
 
     @Column(name = "pin", length = 100, nullable = false)
