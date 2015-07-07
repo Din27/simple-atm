@@ -26,7 +26,7 @@ public class CreditCard implements UserDetails {
     @Column(name = "number", length = 16, nullable = false, updatable = false)
     private String number;
 
-    @Column(name = "pin", length = 4, nullable = false)
+    @Column(name = "pin", length = 100, nullable = false)
     private String pin;
 
     @Column(name = "amount", precision = 15, scale = 2, nullable = false)

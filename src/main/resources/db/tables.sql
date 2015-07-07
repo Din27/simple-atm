@@ -1,6 +1,7 @@
 ----(spring.jpa.hibernate.ddl-auto=update is OK for this project, instead of creating manually)
+---- this document is outdated
 
----- cards table
+---- cards table (outdated)
 
 -- create table creditcard (
 --   number varchar(16) not null,

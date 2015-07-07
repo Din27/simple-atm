@@ -5,6 +5,7 @@ import com.chelyadin.test.simple_atm.repository.CreditCardRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,10 +23,12 @@ public class DefaultTestDataServiceImpl extends BaseService implements DefaultTe
     private static final Logger logger = LoggerFactory.getLogger(DefaultTestDataServiceImpl.class);
 
     private CreditCardRepo creditCardRepo;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DefaultTestDataServiceImpl(CreditCardRepo creditCardRepo) {
+    public DefaultTestDataServiceImpl(CreditCardRepo creditCardRepo, PasswordEncoder passwordEncoder) {
         this.creditCardRepo = creditCardRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,9 +36,9 @@ public class DefaultTestDataServiceImpl extends BaseService implements DefaultTe
         if (creditCardRepo.count() == 0L) {
             logger.info("Application Ready: Creating default test data for credit cards");
             List<CreditCard> defaultTestCreditCards = Arrays.asList(
-                    new CreditCard("1111222233334444", "1111", new BigDecimal("10000.00")),
-                    new CreditCard("5555666677778888", "5555", new BigDecimal("10.00")),
-                    new CreditCard("1234567812345678", "1234", new BigDecimal("2000.00")));
+                    new CreditCard("1111222233334444", passwordEncoder.encode("1111"), new BigDecimal("10000.00")),
+                    new CreditCard("5555666677778888", passwordEncoder.encode("5555"), new BigDecimal("10.00")),
+                    new CreditCard("1234567812345678", passwordEncoder.encode("1234"), new BigDecimal("2000.00")));
             creditCardRepo.save(defaultTestCreditCards);
         } else {
             logger.info("Application Ready: Not creating default test data for credit cards, because there are already some in DB");
