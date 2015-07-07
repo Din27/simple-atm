@@ -10,10 +10,16 @@
         </c:if>
 
         <form name='creditCardNumberForm'
-              action="<c:url value='enter_card' />" method='POST'
+              action="<c:url value='enter_card' />"
+              method='POST'
               autocomplete="off">
 
-            <input type='text' name='number' value=''>
+            <c:set var="numberInputId" value="number-input"/>
+            <input id='${numberInputId}' type='text' name='number' value='' readonly>
+
+            <jsp:include page="_keypad.jsp"/>
+            <script>$(document).ready(function() { startKeypad('#${numberInputId}', 19, true); });</script>
+
             <input name="submit" type="submit" value="submit" />
 
             <input type="hidden" name="${_csrf.parameterName}"

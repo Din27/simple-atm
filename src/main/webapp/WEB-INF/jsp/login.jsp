@@ -11,20 +11,26 @@
         </c:if>
 
         <form name='loginForm'
-              action="<c:url value='/j_spring_security_check' />" method='POST'
+              action="<c:url value='/j_spring_security_check' />"
+              method='POST'
               autocomplete="off">
 
             <!-- fake fields are a workaround for chrome autofill getting the wrong fields (chrome ignores autocomplete="off") -->
             <input style="display:none" type="text" name="fakeusernameremembered"/>
             <input style="display:none" type="password" name="fakepasswordremembered"/>
 
-            <input style="display:none" type='text' name='j_number' value='${number}' autocomplete="off"/>
+            <input style="display:none" type='text' name='j_number' value='${number}' autocomplete="off" readonly/>
 
-            <input type='password' name='j_pin' autocomplete="off"/>
+            <c:set var="pinInputId" value="pin-input"/>
+            <input id="${pinInputId}" type='password' name='j_pin' autocomplete="off" readonly/>
+
+            <jsp:include page="_keypad.jsp"/>
+            <script>$(document).ready(function() { startKeypad('#${pinInputId}', 4, false); });</script>
+
             <input name="submit" type="submit" value="submit" />
 
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
         </form>
     </div>
 </body>

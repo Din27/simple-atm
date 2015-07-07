@@ -8,15 +8,26 @@
             <div class="error">${error}</div>
         </c:if>
 
-        <form name='withdrawalForm' action=" <c:url value='/withdraw'/>" autocomplete="off" method="POST">
-            <input type="text" name="withdrawalAmount" autocomplete="off" /><br/>
+        <form name='withdrawalForm'
+              action=" <c:url value='/withdraw'/>"
+              autocomplete="off"
+              method="POST">
+
+            <c:set var="withdrawalAmountInputId" value="pin-input"/>
+            <input id="${withdrawalAmountInputId}" type="text" name="withdrawalAmount" autocomplete="off" readonly/><br/>
+
+            <jsp:include page="_keypad.jsp"/>
+            <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false); });</script>
+
             <input type="submit" value="Withdraw" /><br/>
+
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
         <a href="<c:url value='/operations'/>">Back</a>
 
-        <form action=" <c:url value='/j_spring_security_logout'/>" method="post">
+        <form action=" <c:url value='/j_spring_security_logout'/>"
+              method="post">
             <input type="submit" value="Exit" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>

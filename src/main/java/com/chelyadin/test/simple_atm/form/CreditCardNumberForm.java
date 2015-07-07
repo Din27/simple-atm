@@ -8,7 +8,7 @@ public class CreditCardNumberForm {
     private String number;
 
     public String getNumber() {
-        return number;
+        return number.replace("-", "");
     }
 
     public void setNumber(String number) {
