@@ -15,9 +15,10 @@ import java.util.Collection;
  * @author Dmitriy Chelyadin
  */
 @Entity
-@Table(name = "creditcards")
+@Table(name = "credit_cards")
 public class CreditCard implements UserDetails {
 
+    private static final Integer FAILED_LOGINS_TO_BLOCK = 4;
     private static final Logger logger = LoggerFactory.getLogger(CreditCard.class);
 
     @Id
@@ -30,11 +31,15 @@ public class CreditCard implements UserDetails {
     @Column(name = "amount", precision = 15, scale = 2, nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "failed_login_attempts", nullable = false)
+    private Integer failedLoginAttempts = 0;
+
     public CreditCard() {}
 
-    public CreditCard(String number, String pin) {
+    public CreditCard(String number, String pin, BigDecimal amount) {
         this.number = number;
         this.pin = pin;
+        this.amount = amount;
     }
 
     public String getNumber() {
@@ -47,6 +52,24 @@ public class CreditCard implements UserDetails {
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public Integer getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    /**
+     * IMPORTANT! This method should be run in @Transactional context!
+     */
+    public void incrementFailedLoginAttempts() {
+        failedLoginAttempts++;
+    }
+
+    /**
+     * IMPORTANT! This method should be run in @Transactional context!
+     */
+    public void resetFailedLoginAttempts() {
+        failedLoginAttempts = 0;
     }
 
     /**
@@ -88,7 +111,7 @@ public class CreditCard implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return failedLoginAttempts < FAILED_LOGINS_TO_BLOCK;
     }
 
     @Override
@@ -109,6 +132,8 @@ public class CreditCard implements UserDetails {
         CreditCard that = (CreditCard) o;
 
         if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+        if (failedLoginAttempts != null ? !failedLoginAttempts.equals(that.failedLoginAttempts) : that.failedLoginAttempts != null)
+            return false;
         if (number != null ? !number.equals(that.number) : that.number != null) return false;
         if (pin != null ? !pin.equals(that.pin) : that.pin != null) return false;
 
@@ -120,6 +145,7 @@ public class CreditCard implements UserDetails {
         int result = number != null ? number.hashCode() : 0;
         result = 31 * result + (pin != null ? pin.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (failedLoginAttempts != null ? failedLoginAttempts.hashCode() : 0);
         return result;
     }
 }

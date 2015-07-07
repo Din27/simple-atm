@@ -27,21 +27,42 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
         this.operationHistoryService = operationHistoryService;
     }
 
+
+// operations with credit card by number
+
     @Override
     public boolean checkCreditCard(String number) {
         CreditCard creditCard = creditCardRepo.findOne(number);
-        return creditCard != null;
+        return creditCard != null && creditCard.isAccountNonLocked();
     }
 
     @Override
-    public CreditCard checkBalance() {
+    public Integer incrementFailedLoginAttempts(String number) {
+        CreditCard creditCard = creditCardRepo.findOne(number);
+        creditCard.incrementFailedLoginAttempts();
+        CreditCard savedCreditCard = creditCardRepo.save(creditCard);
+        return savedCreditCard.getFailedLoginAttempts();
+    }
+
+    @Override
+    public void resetFailedLoginAttempts(String number) {
+        CreditCard creditCard = creditCardRepo.findOne(number);
+        creditCard.resetFailedLoginAttempts();
+        creditCardRepo.save(creditCard);
+    }
+
+
+// operations with currently logged in credit card
+
+    @Override
+    public CreditCard checkBalanceForCurrent() {
         CreditCard creditCard = getCurrentCreditCard();
         operationHistoryService.saveBalanceOperation(creditCard.getNumber());
         return creditCard;
     }
 
     @Override
-    public CreditCard withdraw(BigDecimal withdrawalAmount) {
+    public CreditCard withdrawForCurrent(BigDecimal withdrawalAmount) {
         CreditCard creditCard = getCurrentCreditCard();
         creditCard.withdraw(withdrawalAmount);
         CreditCard savedCreditCard = creditCardRepo.save(creditCard);

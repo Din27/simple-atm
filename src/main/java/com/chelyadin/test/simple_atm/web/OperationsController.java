@@ -43,7 +43,7 @@ public class OperationsController {
     public ModelAndView balance() {
         logger.info("Balance operation request");
 
-        CreditCard creditCard = creditCardService.checkBalance();
+        CreditCard creditCard = creditCardService.checkBalanceForCurrent();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
@@ -77,7 +77,7 @@ public class OperationsController {
 
         BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount()); // TODO validate first - for format and for negative value
 
-        CreditCard savedCreditCard = creditCardService.withdraw(withdrawalAmount);
+        CreditCard savedCreditCard = creditCardService.withdrawForCurrent(withdrawalAmount);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", savedCreditCard.getNumber());

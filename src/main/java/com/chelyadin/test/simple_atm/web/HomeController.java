@@ -49,8 +49,8 @@ public class HomeController {
 
 
         if (!creditCardService.checkCreditCard(form.getNumber())) {
-            logger.info(String.format("Enter card request: Card %s not found", form.getNumber()));
-            return "redirect:/error";
+            logger.info(String.format("Enter card request: Card %s is blocked or does not exist", form.getNumber()));
+            return "redirect:/errorBlockedOrNotExist";
         }
 
         logger.info(String.format("Enter card request: Card %s found", form.getNumber()));

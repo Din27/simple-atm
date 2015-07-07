@@ -2,7 +2,8 @@
 <jsp:include page="_head.jsp"/>
 <body>
     <div id="container">
-        <div class="error">Error</div>
+        <c:set var="errorMsg" value="${errorMsg == null ? 'Error' : errorMsg}"/>
+        <div class="error">${errorMsg}</div>
     </div>
 </body>
 <jsp:include page="_foot.jsp"/>
