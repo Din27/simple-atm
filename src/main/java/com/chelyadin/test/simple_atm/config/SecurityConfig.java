@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("Configuring Security: HttpSecurity");
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/error", "/enter_card").permitAll()
+                .antMatchers("/", "/login", "/error", "/enter_card", "/css/**", "/js/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
