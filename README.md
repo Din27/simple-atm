@@ -28,7 +28,7 @@ Uses Spring Boot, with embedded Tomcat. To run, use command
 * Good test coverage - now only withdraw() method is covered
 * Apache Tiles instead of <jsp:include> on UI
 * Improving code quality a little bit more, especially on UI
-* Partial masking of Credit Card Number on UI and on logs (XXXX-XXXX-XXXX-5439)
+* Partial masking of Credit Card Number on UI and on some of the logs, maybe (XXXX-XXXX-XXXX-5439)
 * Actualizing manual dumps/db scripts for creating tables and default data
 * Favicon :)
 
