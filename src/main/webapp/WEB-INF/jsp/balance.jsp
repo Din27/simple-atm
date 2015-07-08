@@ -5,8 +5,8 @@
     <hr class="divider"/>
 
     <form role="form"
-          action=" <c:url value='/j_spring_security_logout'/>"
-          method="post">
+          action="<c:url value='/j_spring_security_logout'/>"
+          method="POST">
         <div class="form-group">
             <label for="currentDate" class="text-center">Date</label>
             <input id="currentDate" class="form-control text-center" type="text" value="${currentDate}" readonly>
