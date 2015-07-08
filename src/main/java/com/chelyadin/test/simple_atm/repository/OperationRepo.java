@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * JPA Repository to work with {@link Operation} entity and update the Operation History table
  */
 @Repository
 public interface OperationRepo extends CrudRepository<Operation, Long> {

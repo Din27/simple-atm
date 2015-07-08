@@ -55,6 +55,7 @@
     </form>
 
     <script>
+        // prevent submitting if nothing was entered
         $(document).ready(function() {
             $('#loginForm').submit(function() {
                 if ($.trim($("#${pinInputId}").val()) === "") {

@@ -13,6 +13,8 @@ import java.util.Date;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Service to work with Operations History
  */
 @Service
 public class OperationHistoryServiceImpl extends BaseService implements OperationHistoryService {
@@ -26,6 +28,9 @@ public class OperationHistoryServiceImpl extends BaseService implements Operatio
         this.operationRepo = operationRepo;
     }
 
+    /**
+     * Saves balance operation data to operations history table
+     */
     @Override
     public void saveBalanceOperation(String cardNumber) {
         logger.info("Saving balance operation");
@@ -33,6 +38,9 @@ public class OperationHistoryServiceImpl extends BaseService implements Operatio
         operationRepo.save(operation);
     }
 
+    /**
+     * Saves withdrawal operation data to operations history table
+     */
     @Override
     public void saveWithdrawalOperation(String cardNumber, BigDecimal withdrawalAmount) {
         logger.info("Saving withdrawal operation");

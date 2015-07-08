@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * JPA Repository to work with {@link CreditCard} entity and Credit Cards table
  */
 @Repository
 public interface CreditCardRepo extends CrudRepository<CreditCard, String> {

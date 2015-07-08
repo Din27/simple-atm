@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Base service to set up transactions just in one place
  */
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
 public abstract class BaseService {

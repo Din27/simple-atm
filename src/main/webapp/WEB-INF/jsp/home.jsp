@@ -33,11 +33,13 @@
             <button type="submit" class="btn btn-primary btn-block">OK</button>
         </div>
 
+        <%-- needed for CSRF protection - we should not disable this protection for web applications --%>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
     </form>
 
     <script>
+        // prevent submitting if nothing was entered
         $(document).ready(function() {
             $('#creditCardNumberForm').submit(function() {
                 if ($.trim($("#${numberInputId}").val()) === "") {

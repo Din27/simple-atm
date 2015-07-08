@@ -50,6 +50,9 @@ public class HomeController extends BaseSecurityController {
         validateCard(number);
 
         logger.info(String.format("Enter card request: Card %s found", number));
+
+        // once we already know the number of credit card entered on first page of 2-page login, we should remember it
+        // in session. otherwise if we enter login incorrectly for the first time, the number will be lost.
         httpSession.setAttribute("LAST_NUMBER", number);
         return "redirect:/login";
 

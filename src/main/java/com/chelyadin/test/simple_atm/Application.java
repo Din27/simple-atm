@@ -6,15 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Arrays;
-
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Basic application config with Spring Boot
  */
 @Configuration
 @EnableAutoConfiguration
@@ -31,21 +30,7 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
-    }
-
-    private static void logAllBeans(ApplicationContext ctx) {
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
-        StringBuilder sb = new StringBuilder("Beans:\n");
-        for (String beanName : beanNames) {
-            sb
-                    .append("* ")
-                    .append(beanName)
-                    .append("\n");
-
-        }
-        logger.info(sb.toString());
+        SpringApplication.run(Application.class, args);
     }
 
 }

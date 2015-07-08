@@ -16,6 +16,8 @@ import java.util.List;
  * Service for creating default data. Should not be used in production, just for the comfort
  *
  * @author Dmitriy Chelyadin
+ *
+ * Service to create and save the default test data for DB
  */
 @Service
 public class DefaultTestDataServiceImpl extends BaseService implements DefaultTestDataService {
@@ -31,6 +33,9 @@ public class DefaultTestDataServiceImpl extends BaseService implements DefaultTe
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Creates default test data if there is no test data in the DB
+     */
     @Override
     public void createDefaultTestDataIfNeeded() {
         if (creditCardRepo.count() == 0L) {

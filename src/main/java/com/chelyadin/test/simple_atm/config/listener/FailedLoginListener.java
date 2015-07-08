@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * This listener listens for failed login (pin entering) events and updates failed login attempts in DB for the credit card
+ * Once there is 4, the card is going to be locked by Spring Security
  */
 @Component
 public class FailedLoginListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * This listener is needed to create default test data if we don't have it in DB
  */
 @Component
 public class ApplicationReadyListener implements ApplicationListener<ContextRefreshedEvent> {

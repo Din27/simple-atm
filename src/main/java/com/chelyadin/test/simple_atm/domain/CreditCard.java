@@ -14,6 +14,10 @@ import java.util.Collection;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * CreditCard object, which represents credit card in the system, and also implements Spring Security UserDetails interface,
+ * which lets this object work with some security - handle password encoding (pin encoding), limiting login attempts,
+ * account locking (card blocking) and others
  */
 @Entity
 @Table(name = "credit_cards")
@@ -74,6 +78,7 @@ public class CreditCard implements UserDetails {
     }
 
     /**
+     * Withdraws money from the account with checking of business rules
      * IMPORTANT! This method should be run in @Transactional context!
      */
     public BigDecimal withdraw(BigDecimal withdrawalAmount) {
@@ -115,6 +120,7 @@ public class CreditCard implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+        // credit card will be blocked as soon as failed login attempts reach FAILED_LOGIN_ATTEMPTS_TO_BLOCK
         return failedLoginAttempts < FAILED_LOGIN_ATTEMPTS_TO_BLOCK;
     }
 

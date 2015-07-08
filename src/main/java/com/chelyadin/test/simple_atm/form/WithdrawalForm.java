@@ -3,6 +3,8 @@ package com.chelyadin.test.simple_atm.form;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Object to gather result from withdrawal entering form on Withdrawal Page
  */
 public class WithdrawalForm {
 

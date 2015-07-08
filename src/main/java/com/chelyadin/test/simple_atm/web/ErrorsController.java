@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Controller for error cases
  */
 @Controller
 public class ErrorsController implements ErrorController {
@@ -18,12 +20,18 @@ public class ErrorsController implements ErrorController {
 
     private static final String ERROR_PATH = "/error";
 
+    /**
+     * Basic mapping for all unknown errors
+     */
     @RequestMapping(ERROR_PATH)
     public String error() {
         logger.info("Error page request");
         return "error";
     }
 
+    /**
+     * Mapping for blocked/not existing credit card case
+     */
     @RequestMapping("errorBlockedOrNotExist")
     public ModelAndView errorBlockedOrDoesNotExist() {
         logger.info("Error (card blocked/does not exist) page request");

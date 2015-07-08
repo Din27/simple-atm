@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Service to work with Credit Cards and operations with them
  */
 public interface CreditCardService {
 
@@ -14,5 +16,5 @@ public interface CreditCardService {
     Integer resetFailedLoginAttempts(String number);
     CreditCard checkBalance(String number);
     CreditCard withdraw(String number, BigDecimal amount);
-    Integer getFailedLoginAttemptsLeft(String number);
+    Integer getLoginAttemptsLeft(String number);
 }

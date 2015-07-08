@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Object that represents an Operation for the Operations History table
  */
 @Entity
 @Table(name = "operations")

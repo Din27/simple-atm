@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Security configuration for the application
  */
 @Configuration
 @EnableWebSecurity
@@ -33,15 +35,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("Configuring Security: HttpSecurity");
         http
                 .authorizeRequests()
+                // public resources and urls which do not require to be logged in yet
                 .antMatchers("/", "/login", "/error", "/errorBlockedOrNotExist", "/enter_card", "/css/**", "/js/**").permitAll()
+                // other requests require login (entered correct non-blocked credit card and pin)
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
+                // start 2-page login from home page with entering credit card number
                 .loginPage("/")
                 .usernameParameter("j_number")
                 .passwordParameter("j_pin")
                 .loginProcessingUrl("/j_spring_security_check")
                 .defaultSuccessUrl("/operations")
+                // if user enters incorrect pin, he will be thrown right to the second page of 2-page login, with the pin code input
                 .failureUrl("/login?error")
                 .permitAll()
                 .and()

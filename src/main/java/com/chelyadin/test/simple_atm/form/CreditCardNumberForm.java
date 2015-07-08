@@ -2,6 +2,8 @@ package com.chelyadin.test.simple_atm.form;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Object to gather result from credit card entering form on Home Page
  */
 public class CreditCardNumberForm {
 

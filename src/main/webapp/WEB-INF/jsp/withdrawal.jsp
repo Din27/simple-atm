@@ -59,6 +59,7 @@
     </table>
 
     <script>
+        // prevent submitting if nothing was entered
         $(document).ready(function() {
             $('#withdrawalForm').submit(function() {
                 if ($.trim($("#${withdrawalAmountInputId}").val()) === "") {

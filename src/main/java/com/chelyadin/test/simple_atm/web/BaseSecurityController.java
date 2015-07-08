@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Has some useful functions for working with security
  */
 @Controller
 public abstract class BaseSecurityController {
@@ -23,10 +25,20 @@ public abstract class BaseSecurityController {
     @Autowired
     private CreditCardService creditCardService;
 
+    /**
+     * Gets current logged in credit card number from Spring Security.
+     * IMPORTANT! We should not get whole {@link CreditCard} object from
+     * {@link SecurityContextHolder} because this could give us old (detached?) CreditCard object.
+     */
     protected String getCurrentCreditCardNumber() {
         return ((CreditCard) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNumber();
     }
 
+    /**
+     * Validates credit card by number - checks if the card exist and if it's not blocked.
+     * IMPORTANT! Should be run before each request!
+     * @throws com.chelyadin.test.simple_atm.exception.CardBlockedOrNotExistException
+     */
     protected void validateCard(String number) {
         if (!creditCardService.checkCreditCard(number)) {
             logger.info(String.format("Validate card: Card %s is blocked or does not exist", number));
@@ -34,6 +46,9 @@ public abstract class BaseSecurityController {
         }
     }
 
+    /**
+     * Handles {@link CardBlockedOrNotExistException} and redirects to corresponding error page
+     */
     @ExceptionHandler(CardBlockedOrNotExistException.class)
     public String handleCardBlockedOrNotExist(Exception ex) {
         return "redirect:/errorBlockedOrNotExist";

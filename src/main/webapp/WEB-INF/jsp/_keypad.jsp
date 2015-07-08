@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- Generates numeric keypad --%>
 <div class="keypad-container">
     <div class="form-group">
         <button class="keypad-clear-key btn btn-default btn-block" type="button"><c:out value="${param.clearButtonName}" default="Clear"/></button>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * Service for Spring Security to work with CreditCard entity as a UserDetails
  */
 @Service
 public class UserDetailsServiceImpl extends BaseService implements UserDetailsService {

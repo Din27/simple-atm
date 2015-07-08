@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Dmitriy Chelyadin
+ *
+ * This listener listens to success login events and resets failed login attempts in database once the user enters the pin successfuly
  */
 @Component
 public class SuccessLoginListener implements ApplicationListener<AuthenticationSuccessEvent> {
