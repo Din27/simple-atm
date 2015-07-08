@@ -28,7 +28,7 @@ public class ErrorsController implements ErrorController {
     public ModelAndView errorBlockedOrDoesNotExist() {
         logger.info("Error (card blocked/does not exist) page request");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("errorMsg", "Error! Card is blocked or does not exist");
+        modelAndView.addObject("errorMsg", "Card is blocked or does not exist");
         modelAndView.setViewName("error");
         return modelAndView;
     }

@@ -4,7 +4,6 @@
     <h1 class="text-center header">Balance</h1>
     <hr class="divider"/>
 
-
     <form role="form"
           action=" <c:url value='/j_spring_security_logout'/>"
           method="post">
