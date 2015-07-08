@@ -38,7 +38,8 @@ public class DefaultTestDataServiceImpl extends BaseService implements DefaultTe
             List<CreditCard> defaultTestCreditCards = Arrays.asList(
                     new CreditCard("1111-2222-3333-4444", passwordEncoder.encode("1111"), new BigDecimal("10000.00")),
                     new CreditCard("5555-6666-7777-8888", passwordEncoder.encode("5555"), new BigDecimal("10.00")),
-                    new CreditCard("1234-5678-1234-5678", passwordEncoder.encode("1234"), new BigDecimal("2000.00")));
+                    new CreditCard("1234-5678-1234-5678", passwordEncoder.encode("1234"), new BigDecimal("2000.00")),
+                    new CreditCard("1111-1111-1111-1111", passwordEncoder.encode("1111"), new BigDecimal("3500.00")));
             creditCardRepo.save(defaultTestCreditCards);
         } else {
             logger.info("Application Ready: Not creating default test data for credit cards, because there are already some in DB");
