@@ -69,9 +69,9 @@ public class OperationsController extends BaseSecurityController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", number);
         if (emptyWithdrawalAmount != null) {
-            modelAndView.addObject("error", "Error! Withdrawal amount can not be empty");
+            modelAndView.addObject("error", "Withdrawal amount can not be empty");
         } else if (notEnoughMoney != null) {
-            modelAndView.addObject("error", "Error!  There is not enough money on credit card");
+            modelAndView.addObject("error", "Not enough money on credit card");
         }
 
         modelAndView.setViewName("withdrawal");
