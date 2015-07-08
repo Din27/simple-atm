@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
 
-<body onload='document.loginForm.j_pin.focus();'>
+<body>
     <div id="container">
 
         <h3>PIN for <c:out value="${number}"/>:</h3>

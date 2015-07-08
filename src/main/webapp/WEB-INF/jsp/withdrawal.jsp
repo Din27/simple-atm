@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
 
-<body onload='document.withdrawalForm.withdrawalAmount.focus();'>
+<body>
     <div id="container">
     <h3>Withdrawal</h3>
         <c:if test="${not empty error}">
