@@ -1,10 +1,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div id="keypad">
+<div class="keypad-container">
+    <div class="form-group">
+        <button class="keypad-clear-key btn btn-default btn-block" type="button">Clear</button>
+    </div>
+
     <script src="/js/keypad.js"></script>
-    <c:set var="keys">1,2,3,4,5,6,7,8,9,0</c:set>
-    <c:forTokens var="key" items="${keys}"
-                 delims=",">
-        <button class="keypad-key" type="button" value="<c:out value='${key}'/>" ><c:out value='${key}'/></button>
-    </c:forTokens>
-    <button class="keypad-clear-key" type="button">Clear</button>
+
+    <div class="form-group">
+        <table class="three-td-table">
+            <tbody>
+                <c:set var="keys">1,2,3,4,5,6,7,8,9,0</c:set>
+                <tr>
+                    <c:forTokens var="key" items="${keys}"
+                                 delims=",">
+                        <c:if test="${key == 0}">
+                            <td></td>
+                        </c:if>
+                        <td>
+                            <button class="keypad-key btn btn-default btn-block" type="button" value="<c:out value='${key}'/>" ><c:out value='${key}'/></button>
+                        </td>
+                        <c:if test="${key != 0 && key % 3 == 0}">
+                            </tr>
+                            <tr>
+                        </c:if>
+                        <c:if test="${key == 0}">
+                            <td></td>
+                        </c:if>
+                    </c:forTokens>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

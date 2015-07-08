@@ -1,43 +1,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
-<body>
-    <div id="container">
 
-        <h3>Credit Card Number:</h3>
+    <h1 class="text-center header">Home</h1>
+    <hr class="after-header"/>
 
-        <c:if test="${not empty msg}">
-            <div class="msg">${msg}</div>
-        </c:if>
+    <c:if test="${not empty msg}">
+        <div class="alert alert-info text-center">
+            <c:out value="${msg}"/>
+        </div>
+    </c:if>
 
-        <form id="creditCardNumberForm"
-              name='creditCardNumberForm'
-              action="<c:url value='enter_card' />"
-              method='POST'
-              autocomplete="off">
+    <form id="creditCardNumberForm"
+          name="creditCardNumberForm"
+          role="form"
+          action="<c:url value='enter_card' />"
+          method="POST"
+          autocomplete="off">
 
+        <div class="form-group">
             <c:set var="numberInputId" value="number-input"/>
-            <input id='${numberInputId}' type='text' name='number' value='' readonly required>
+            <div class="form-group">
+                <label for="${numberInputId}" class="sr-only">Credit Card Number</label>
+                <input id="${numberInputId}" class="form-control text-center" type="text" name="number"
+                       placeholder="Credit Card Number" readonly required>
+            </div>
+        </div>
 
-            <jsp:include page="_keypad.jsp"/>
-            <script>$(document).ready(function() { startKeypad('#${numberInputId}', 19, true); });</script>
+        <jsp:include page="_keypad.jsp"/>
+        <script>$(document).ready(function() { startKeypad('#${numberInputId}', 19, true); });</script>
 
-            <input name="submit" type="submit" value="submit" />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">OK</button>
+        </div>
 
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-        </form>
+    </form>
 
-        <script>
-            $(document).ready(function() {
-                $('#creditCardNumberForm').submit(function() {
-                    if ($.trim($("#${numberInputId}").val()) === "") {
-                        return false;
-                    }
-                });
+    <script>
+        $(document).ready(function() {
+            $('#creditCardNumberForm').submit(function() {
+                if ($.trim($("#${numberInputId}").val()) === "") {
+                    return false;
+                }
             });
-        </script>
-    </div>
-</body>
+        });
+    </script>
 
 <jsp:include page="_foot.jsp"/>

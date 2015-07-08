@@ -43,7 +43,7 @@ public class LoginController extends BaseSecurityController {
         modelAndView.addObject("number", number);
 
         if (error != null) {
-            modelAndView.addObject("error", String.format("Error! Invalid PIN (attempts left: %d)",
+            modelAndView.addObject("error", String.format("Invalid PIN (attempts left: %d)",
                             creditCardService.getFailedLoginAttemptsLeft(number)));
         }
 

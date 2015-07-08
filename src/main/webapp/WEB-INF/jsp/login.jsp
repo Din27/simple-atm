@@ -1,49 +1,67 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="_head.jsp"/>
 
-<body>
-    <div id="container">
+    <h1 class="text-center header">Enter PIN</h1>
+    <hr class="after-header"/>
 
-        <h3>PIN for <c:out value="${number}"/>:</h3>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger text-center">
+            <c:out value="${error}"/>
+        </div>
+    </c:if>
 
-        <c:if test="${not empty error}">
-            <div class="error">${error}</div>
-        </c:if>
+    <form id="loginForm"
+          name="loginForm"
+          role="form"
+          action="<c:url value='/j_spring_security_check' />"
+          method="POST"
+          autocomplete="off">
 
-        <form id='loginForm'
-              name='loginForm'
-              action="<c:url value='/j_spring_security_check' />"
-              method='POST'
-              autocomplete="off">
+        <!-- fake fields are a workaround for chrome autofill getting the wrong fields (chrome ignores autocomplete="off") -->
+        <input style="display:none" type="text" name="fakeusernameremembered"/>
+        <input style="display:none" type="password" name="fakepasswordremembered"/>
 
-            <!-- fake fields are a workaround for chrome autofill getting the wrong fields (chrome ignores autocomplete="off") -->
-            <input style="display:none" type="text" name="fakeusernameremembered"/>
-            <input style="display:none" type="password" name="fakepasswordremembered"/>
+        <%-- hidden field for credit card number for spring security to handle login --%>
+        <input style="display:none" type='text' name='j_number' value='${number}' autocomplete="off" readonly/>
 
-            <input style="display:none" type='text' name='j_number' value='${number}' autocomplete="off" readonly/>
-
+        <div class="form-group">
             <c:set var="pinInputId" value="pin-input"/>
-            <input id="${pinInputId}" type='password' name='j_pin' autocomplete="off" readonly required/>
+            <label for="${pinInputId}" class="sr-only">PIN</label>
+            <input id="${pinInputId}" class="form-control text-center" type='password' name='j_pin'
+                   placeholder="PIN" autocomplete="off" readonly required/>
+        </div>
 
-            <jsp:include page="_keypad.jsp"/>
-            <script>$(document).ready(function() { startKeypad('#${pinInputId}', 4, false); });</script>
+        <jsp:include page="_keypad.jsp"/>
+        <script>$(document).ready(function() { startKeypad('#${pinInputId}', 4, false); });</script>
 
-            <input name="submit" type="submit" value="submit" />
+        <div class="form-group">
+            <table class="three-td-table">
+                <tr>
+                    <td>
+                        <a href="<c:url value='/'/>" class="btn btn-default btn-block">Exit</a>
+                    </td>
+                    <td>
+                        <a href="<c:url value='/'/>" class="btn btn-default btn-block">Back</a>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-block">OK</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-        </form>
+    </form>
 
-        <script>
-            $(document).ready(function() {
-                $('#loginForm').submit(function() {
-                    if ($.trim($("#${pinInputId}").val()) === "") {
-                        return false;
-                    }
-                });
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').submit(function() {
+                if ($.trim($("#${pinInputId}").val()) === "") {
+                    return false;
+                }
             });
-        </script>
-    </div>
-</body>
+        });
+    </script>
 
 <jsp:include page="_foot.jsp"/>
