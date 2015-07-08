@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="keypad-container">
     <div class="form-group">
-        <button class="keypad-clear-key btn btn-default btn-block" type="button">Clear</button>
+        <button class="keypad-clear-key btn btn-default btn-block" type="button"><c:out value="${param.clearButtonName}" default="Clear"/></button>
     </div>
 
     <script src="/js/keypad.js"></script>

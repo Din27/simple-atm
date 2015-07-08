@@ -20,11 +20,13 @@
             <c:set var="withdrawalAmountInputId" value="pin-input"/>
             <label for="${withdrawalAmountInputId}" class="sr-only">Withdrawal Amount</label>
             <input id="${withdrawalAmountInputId}" type="text" class="form-control text-center" name="withdrawalAmount"
-                   placeholder="Withdrawal Amount" autocomplete="off" readonly required/><br/>
+                   placeholder="Withdrawal Amount" autocomplete="off" readonly required/>
         </div>
 
-        <jsp:include page="_keypad.jsp"/>
-        <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false, "Delete"); });</script>
+        <jsp:include page="_keypad.jsp">
+            <jsp:param name="clearButtonName" value="Delete"/>
+        </jsp:include>
+        <script>$(document).ready(function() { startKeypad('#${withdrawalAmountInputId}', 13, false); });</script>
 
         <table class="three-td-table">
             <tr>

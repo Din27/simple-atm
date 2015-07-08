@@ -1,12 +1,6 @@
-function startKeypad(targetInputSelector, maxLength, isCreditCard, clearKeyForcedName) {
+function startKeypad(targetInputSelector, maxLength, isCreditCard) {
     var keyClearSelector = ".keypad-clear-key";
     var keySelector = ".keypad-key";
-
-    $(document).ready(function () {
-        if (clearKeyForcedName !== undefined) {
-            $(keyClearSelector).html(clearKeyForcedName);
-        }
-    });
 
     $(keyClearSelector).click(function () {
         $(targetInputSelector).val("");

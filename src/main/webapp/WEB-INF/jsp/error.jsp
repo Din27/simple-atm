@@ -11,7 +11,7 @@
         <c:out value="${errorMsg}"/>
     </div>
 
-    <a href="<c:url value='/'/>" class="btn btn-default btn-block">Back</a><br/>
+    <a href="<c:url value='/'/>" class="btn btn-default btn-block">Back</a>
 
 
 
