@@ -38,7 +38,7 @@
             <table class="three-td-table">
                 <tr>
                     <td>
-                        <a href="<c:url value='/'/>" class="btn btn-default btn-block">Exit</a>
+                        <a href="<c:url value='/?logout'/>" class="btn btn-default btn-block">Exit</a>
                     </td>
                     <td>
                         <a href="<c:url value='/'/>" class="btn btn-default btn-block">Back</a>
