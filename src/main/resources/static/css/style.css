@@ -36,3 +36,8 @@ input.form-control[readonly] {
     width: 33.3%;
     padding: 2px;
 }
+
+/* quick dirty fix to avoid nested forms */
+.withdrawal-fix-exit-height {
+    margin-top: -38px;
+}
