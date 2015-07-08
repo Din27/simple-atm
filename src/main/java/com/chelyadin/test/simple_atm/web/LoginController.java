@@ -1,6 +1,7 @@
 package com.chelyadin.test.simple_atm.web;
 
 import com.chelyadin.test.simple_atm.service.CreditCardService;
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
  * @author Dmitriy Chelyadin
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseSecurityController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -36,11 +37,7 @@ public class LoginController {
             modelAndView.setViewName("redirect:/");
             return modelAndView;
         }
-        if (!creditCardService.checkCreditCard(number)) {
-            logger.info(String.format("Login Page Request: Card %s is blocked or does not exist", number));
-            modelAndView.setViewName("redirect:/errorBlockedOrNotExist");
-            return modelAndView;
-        }
+        validateCard(number);
 
         logger.info(String.format("Login Page Request: Card Number: %s)", number));
         modelAndView.addObject("number", number);

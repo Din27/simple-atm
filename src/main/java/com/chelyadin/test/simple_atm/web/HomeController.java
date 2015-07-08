@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author Dmitriy Chelyadin
  */
 @Controller
-public class HomeController {
+public class HomeController extends BaseSecurityController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -46,15 +46,11 @@ public class HomeController {
     public String submitCreditCardNumber(
             @ModelAttribute CreditCardNumberForm form,
             HttpSession httpSession) {
+        String number = form.getNumber();
+        validateCard(number);
 
-
-        if (!creditCardService.checkCreditCard(form.getNumber())) {
-            logger.info(String.format("Enter card request: Card %s is blocked or does not exist", form.getNumber()));
-            return "redirect:/errorBlockedOrNotExist";
-        }
-
-        logger.info(String.format("Enter card request: Card %s found", form.getNumber()));
-        httpSession.setAttribute("LAST_NUMBER", form.getNumber());
+        logger.info(String.format("Enter card request: Card %s found", number));
+        httpSession.setAttribute("LAST_NUMBER", number);
         return "redirect:/login";
 
     }

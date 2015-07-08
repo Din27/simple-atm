@@ -42,7 +42,10 @@ public class OperationsController extends BaseSecurityController {
     public ModelAndView balance() {
         logger.info("Balance operation request");
 
-        CreditCard creditCard = creditCardService.checkBalance(getCurrentCreditCardNumber());
+        String number = getCurrentCreditCardNumber();
+        validateCard(number);
+
+        CreditCard creditCard = creditCardService.checkBalance(number);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", creditCard.getNumber());
@@ -60,8 +63,11 @@ public class OperationsController extends BaseSecurityController {
             @RequestParam(value = "emptyWithdrawalAmount", required = false) String emptyWithdrawalAmount) {
         logger.info("Withdrawal page request");
 
+        String number = getCurrentCreditCardNumber();
+        validateCard(number);
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("number", getCurrentCreditCardNumber());
+        modelAndView.addObject("number", number);
         if (emptyWithdrawalAmount != null) {
             modelAndView.addObject("error", "Error! Withdrawal amount can not be empty");
         } else if (notEnoughMoney != null) {
@@ -76,9 +82,12 @@ public class OperationsController extends BaseSecurityController {
     public ModelAndView withdraw(@ModelAttribute WithdrawalForm form) {
         logger.info(String.format("Withdraw operation request, withdrawal amount = %s$", form.getWithdrawalAmount()));
 
+        String number = getCurrentCreditCardNumber();
+        validateCard(number);
+
         BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount()); // TODO validate first - for format and for negative value
 
-        CreditCard savedCreditCard = creditCardService.withdraw(getCurrentCreditCardNumber(), withdrawalAmount);
+        CreditCard savedCreditCard = creditCardService.withdraw(number, withdrawalAmount);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("number", savedCreditCard.getNumber());
