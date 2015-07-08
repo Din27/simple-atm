@@ -36,7 +36,7 @@
                     <a href="<c:url value='/operations'/>" class="btn btn-default btn-block">Back</a>
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-primary btn-block">Withdraw</button>
+                    <button type="submit" class="btn btn-primary btn-block">OK</button>
                 </td>
             </tr>
         </table>
