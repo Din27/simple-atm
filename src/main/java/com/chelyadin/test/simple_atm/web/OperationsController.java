@@ -85,7 +85,7 @@ public class OperationsController extends BaseSecurityController {
         String number = getCurrentCreditCardNumber();
         validateCard(number);
 
-        BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount()); // TODO validate first - for format and for negative value
+        BigDecimal withdrawalAmount = new BigDecimal(form.getWithdrawalAmount());
 
         CreditCard savedCreditCard = creditCardService.withdraw(number, withdrawalAmount);
 
