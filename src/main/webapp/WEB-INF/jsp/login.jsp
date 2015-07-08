@@ -2,7 +2,7 @@
 <jsp:include page="_head.jsp"/>
 
     <h1 class="text-center header">Enter PIN</h1>
-    <hr class="after-header"/>
+    <hr class="divider"/>
 
     <c:if test="${not empty error}">
         <div class="alert alert-danger text-center">
