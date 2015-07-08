@@ -1,7 +1,7 @@
 package com.chelyadin.test.simple_atm.web;
 
+import com.chelyadin.test.simple_atm.domain.CreditCard;
 import com.chelyadin.test.simple_atm.service.CreditCardService;
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,8 @@ public class LoginController extends BaseSecurityController {
         modelAndView.addObject("number", number);
 
         if (error != null) {
-            // TODO add left attempts info? or no?
-            modelAndView.addObject("error", "Error! Invalid PIN");
+            modelAndView.addObject("error", String.format("Error! Invalid PIN (attempts left: %d)",
+                            creditCardService.getFailedLoginAttemptsLeft(number)));
         }
 
         modelAndView.setViewName("login");

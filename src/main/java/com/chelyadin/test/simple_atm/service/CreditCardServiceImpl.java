@@ -65,4 +65,10 @@ public class CreditCardServiceImpl extends BaseService implements CreditCardServ
         return savedCreditCard;
     }
 
+    @Override
+    public Integer getFailedLoginAttemptsLeft(String number) {
+        CreditCard creditCard = creditCardRepo.findOne(number);
+        return CreditCard.FAILED_LOGIN_ATTEMPTS_TO_BLOCK - creditCard.getFailedLoginAttempts();
+    }
+
 }

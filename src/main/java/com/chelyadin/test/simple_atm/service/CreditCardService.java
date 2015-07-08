@@ -14,4 +14,5 @@ public interface CreditCardService {
     Integer resetFailedLoginAttempts(String number);
     CreditCard checkBalance(String number);
     CreditCard withdraw(String number, BigDecimal amount);
+    Integer getFailedLoginAttemptsLeft(String number);
 }

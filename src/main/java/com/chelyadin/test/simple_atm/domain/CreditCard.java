@@ -19,7 +19,7 @@ import java.util.Collection;
 @Table(name = "credit_cards")
 public class CreditCard implements UserDetails {
 
-    private static final Integer FAILED_LOGINS_TO_BLOCK = 4;
+    public static final Integer FAILED_LOGIN_ATTEMPTS_TO_BLOCK = 4;
     private static final Logger logger = LoggerFactory.getLogger(CreditCard.class);
 
     @Id
@@ -115,7 +115,7 @@ public class CreditCard implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return failedLoginAttempts < FAILED_LOGINS_TO_BLOCK;
+        return failedLoginAttempts < FAILED_LOGIN_ATTEMPTS_TO_BLOCK;
     }
 
     @Override
